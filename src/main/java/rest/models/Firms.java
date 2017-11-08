@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "firms")
-public class FirmsEntity {
+public class Firms {
     private Integer id;
     private String firmName;
     private Timestamp createdAt;
@@ -56,7 +56,7 @@ public class FirmsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FirmsEntity that = (FirmsEntity) o;
+        Firms that = (Firms) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (firmName != null ? !firmName.equals(that.firmName) : that.firmName != null) return false;

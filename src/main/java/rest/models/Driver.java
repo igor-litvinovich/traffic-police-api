@@ -5,14 +5,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "jacked_cars")
-public class JackedCarsEntity {
+@Table(name = "drivers")
+public class Driver {
     private Integer id;
-    private Date jcJackdate;
-    private Date jcReportDate;
-    private String jcAdditional;
-    private Byte jcFound;
-    private String jcFoundDate;
+    private String driverFio;
+    private Date driverBirthdate;
+    private String driverAdress;
+    private Integer driverPassport;
+    private String driverRules;
     private Date driverRulesDate;
     private String driverCategory;
     private Timestamp createdAt;
@@ -29,53 +29,53 @@ public class JackedCarsEntity {
     }
 
     @Basic
-    @Column(name = "JC_JACKDATE")
-    public Date getJcJackdate() {
-        return jcJackdate;
+    @Column(name = "DRIVER_FIO")
+    public String getDriverFio() {
+        return driverFio;
     }
 
-    public void setJcJackdate(Date jcJackdate) {
-        this.jcJackdate = jcJackdate;
-    }
-
-    @Basic
-    @Column(name = "JC_REPORT_DATE")
-    public Date getJcReportDate() {
-        return jcReportDate;
-    }
-
-    public void setJcReportDate(Date jcReportDate) {
-        this.jcReportDate = jcReportDate;
+    public void setDriverFio(String driverFio) {
+        this.driverFio = driverFio;
     }
 
     @Basic
-    @Column(name = "JC_ADDITIONAL")
-    public String getJcAdditional() {
-        return jcAdditional;
+    @Column(name = "DRIVER_BIRTHDATE")
+    public Date getDriverBirthdate() {
+        return driverBirthdate;
     }
 
-    public void setJcAdditional(String jcAdditional) {
-        this.jcAdditional = jcAdditional;
-    }
-
-    @Basic
-    @Column(name = "JC_FOUND")
-    public Byte getJcFound() {
-        return jcFound;
-    }
-
-    public void setJcFound(Byte jcFound) {
-        this.jcFound = jcFound;
+    public void setDriverBirthdate(Date driverBirthdate) {
+        this.driverBirthdate = driverBirthdate;
     }
 
     @Basic
-    @Column(name = "JC_FOUND_DATE")
-    public String getJcFoundDate() {
-        return jcFoundDate;
+    @Column(name = "DRIVER_ADRESS")
+    public String getDriverAdress() {
+        return driverAdress;
     }
 
-    public void setJcFoundDate(String jcFoundDate) {
-        this.jcFoundDate = jcFoundDate;
+    public void setDriverAdress(String driverAdress) {
+        this.driverAdress = driverAdress;
+    }
+
+    @Basic
+    @Column(name = "DRIVER_PASSPORT")
+    public Integer getDriverPassport() {
+        return driverPassport;
+    }
+
+    public void setDriverPassport(Integer driverPassport) {
+        this.driverPassport = driverPassport;
+    }
+
+    @Basic
+    @Column(name = "DRIVER_RULES")
+    public String getDriverRules() {
+        return driverRules;
+    }
+
+    public void setDriverRules(String driverRules) {
+        this.driverRules = driverRules;
     }
 
     @Basic
@@ -123,14 +123,16 @@ public class JackedCarsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        JackedCarsEntity that = (JackedCarsEntity) o;
+        Driver that = (Driver) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (jcJackdate != null ? !jcJackdate.equals(that.jcJackdate) : that.jcJackdate != null) return false;
-        if (jcReportDate != null ? !jcReportDate.equals(that.jcReportDate) : that.jcReportDate != null) return false;
-        if (jcAdditional != null ? !jcAdditional.equals(that.jcAdditional) : that.jcAdditional != null) return false;
-        if (jcFound != null ? !jcFound.equals(that.jcFound) : that.jcFound != null) return false;
-        if (jcFoundDate != null ? !jcFoundDate.equals(that.jcFoundDate) : that.jcFoundDate != null) return false;
+        if (driverFio != null ? !driverFio.equals(that.driverFio) : that.driverFio != null) return false;
+        if (driverBirthdate != null ? !driverBirthdate.equals(that.driverBirthdate) : that.driverBirthdate != null)
+            return false;
+        if (driverAdress != null ? !driverAdress.equals(that.driverAdress) : that.driverAdress != null) return false;
+        if (driverPassport != null ? !driverPassport.equals(that.driverPassport) : that.driverPassport != null)
+            return false;
+        if (driverRules != null ? !driverRules.equals(that.driverRules) : that.driverRules != null) return false;
         if (driverRulesDate != null ? !driverRulesDate.equals(that.driverRulesDate) : that.driverRulesDate != null)
             return false;
         if (driverCategory != null ? !driverCategory.equals(that.driverCategory) : that.driverCategory != null)
@@ -144,11 +146,11 @@ public class JackedCarsEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (jcJackdate != null ? jcJackdate.hashCode() : 0);
-        result = 31 * result + (jcReportDate != null ? jcReportDate.hashCode() : 0);
-        result = 31 * result + (jcAdditional != null ? jcAdditional.hashCode() : 0);
-        result = 31 * result + (jcFound != null ? jcFound.hashCode() : 0);
-        result = 31 * result + (jcFoundDate != null ? jcFoundDate.hashCode() : 0);
+        result = 31 * result + (driverFio != null ? driverFio.hashCode() : 0);
+        result = 31 * result + (driverBirthdate != null ? driverBirthdate.hashCode() : 0);
+        result = 31 * result + (driverAdress != null ? driverAdress.hashCode() : 0);
+        result = 31 * result + (driverPassport != null ? driverPassport.hashCode() : 0);
+        result = 31 * result + (driverRules != null ? driverRules.hashCode() : 0);
         result = 31 * result + (driverRulesDate != null ? driverRulesDate.hashCode() : 0);
         result = 31 * result + (driverCategory != null ? driverCategory.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);

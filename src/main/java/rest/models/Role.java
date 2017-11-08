@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "marks")
-public class MarksEntity {
+@Table(name = "roles")
+public class Role {
     private Integer id;
-    private String markName;
+    private String name;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -22,13 +22,13 @@ public class MarksEntity {
     }
 
     @Basic
-    @Column(name = "MARK_NAME")
-    public String getMarkName() {
-        return markName;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setMarkName(String markName) {
-        this.markName = markName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -56,10 +56,10 @@ public class MarksEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MarksEntity that = (MarksEntity) o;
+        Role that = (Role) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (markName != null ? !markName.equals(that.markName) : that.markName != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
 
@@ -69,7 +69,7 @@ public class MarksEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (markName != null ? markName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;

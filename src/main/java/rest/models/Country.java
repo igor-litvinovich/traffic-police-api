@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "countries")
-public class CountriesEntity {
+public class Country {
     private Integer id;
     private String countryName;
     private Timestamp createdAt;
@@ -56,7 +56,7 @@ public class CountriesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CountriesEntity that = (CountriesEntity) o;
+        Country that = (Country) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (countryName != null ? !countryName.equals(that.countryName) : that.countryName != null) return false;

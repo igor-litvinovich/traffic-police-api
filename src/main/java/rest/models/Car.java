@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "ams")
-public class AmsEntity {
+public class Car {
     private Integer id;
     private String amRegNumber;
     private String amColor;
@@ -123,24 +123,24 @@ public class AmsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AmsEntity amsEntity = (AmsEntity) o;
+        Car car = (Car) o;
 
-        if (id != null ? !id.equals(amsEntity.id) : amsEntity.id != null) return false;
-        if (amRegNumber != null ? !amRegNumber.equals(amsEntity.amRegNumber) : amsEntity.amRegNumber != null)
+        if (id != null ? !id.equals(car.id) : car.id != null) return false;
+        if (amRegNumber != null ? !amRegNumber.equals(car.amRegNumber) : car.amRegNumber != null)
             return false;
-        if (amColor != null ? !amColor.equals(amsEntity.amColor) : amsEntity.amColor != null) return false;
-        if (amBodyNumber != null ? !amBodyNumber.equals(amsEntity.amBodyNumber) : amsEntity.amBodyNumber != null)
+        if (amColor != null ? !amColor.equals(car.amColor) : car.amColor != null) return false;
+        if (amBodyNumber != null ? !amBodyNumber.equals(car.amBodyNumber) : car.amBodyNumber != null)
             return false;
-        if (amEngineNumber != null ? !amEngineNumber.equals(amsEntity.amEngineNumber) : amsEntity.amEngineNumber != null)
+        if (amEngineNumber != null ? !amEngineNumber.equals(car.amEngineNumber) : car.amEngineNumber != null)
             return false;
-        if (amTechpassportNumber != null ? !amTechpassportNumber.equals(amsEntity.amTechpassportNumber) : amsEntity.amTechpassportNumber != null)
+        if (amTechpassportNumber != null ? !amTechpassportNumber.equals(car.amTechpassportNumber) : car.amTechpassportNumber != null)
             return false;
-        if (amBirthdate != null ? !amBirthdate.equals(amsEntity.amBirthdate) : amsEntity.amBirthdate != null)
+        if (amBirthdate != null ? !amBirthdate.equals(car.amBirthdate) : car.amBirthdate != null)
             return false;
-        if (amRegistrationDate != null ? !amRegistrationDate.equals(amsEntity.amRegistrationDate) : amsEntity.amRegistrationDate != null)
+        if (amRegistrationDate != null ? !amRegistrationDate.equals(car.amRegistrationDate) : car.amRegistrationDate != null)
             return false;
-        if (createdAt != null ? !createdAt.equals(amsEntity.createdAt) : amsEntity.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(amsEntity.updatedAt) : amsEntity.updatedAt != null) return false;
+        if (createdAt != null ? !createdAt.equals(car.createdAt) : car.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(car.updatedAt) : car.updatedAt != null) return false;
 
         return true;
     }
