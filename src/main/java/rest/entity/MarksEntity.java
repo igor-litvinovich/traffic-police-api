@@ -1,15 +1,19 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "marks")
-public class Mark {
+public class MarksEntity {
     private Integer id;
     private String markName;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
+    private Collection<CarEntity> amsById;
+    private CountriesEntity countriesByCountryId;
+    private FirmsEntity firmsByFirmId;
 
     @Id
     @Column(name = "id")
@@ -33,21 +37,21 @@ public class Mark {
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -56,7 +60,7 @@ public class Mark {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Mark that = (Mark) o;
+        MarksEntity that = (MarksEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (markName != null ? !markName.equals(that.markName) : that.markName != null) return false;
@@ -73,5 +77,34 @@ public class Mark {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "marksByMarkId")
+    public Collection<CarEntity> getAmsById() {
+        return amsById;
+    }
+
+    public void setAmsById(Collection<CarEntity> amsById) {
+        this.amsById = amsById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "countryId", referencedColumnName = "id")
+    public CountriesEntity getCountriesByCountryId() {
+        return countriesByCountryId;
+    }
+
+    public void setCountriesByCountryId(CountriesEntity countriesByCountryId) {
+        this.countriesByCountryId = countriesByCountryId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "firmId", referencedColumnName = "id")
+    public FirmsEntity getFirmsByFirmId() {
+        return firmsByFirmId;
+    }
+
+    public void setFirmsByFirmId(FirmsEntity firmsByFirmId) {
+        this.firmsByFirmId = firmsByFirmId;
     }
 }

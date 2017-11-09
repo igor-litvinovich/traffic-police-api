@@ -1,12 +1,11 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "ams")
-public class Car {
+public class CarEntity {
     private Integer id;
     private String amRegNumber;
     private String amColor;
@@ -15,8 +14,11 @@ public class Car {
     private Integer amTechpassportNumber;
     private Date amBirthdate;
     private Date amRegistrationDate;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
+    private MarksEntity marksByMarkId;
+    private DriversEntity driversByDriverId;
+    private JackedCarsEntity jackedCarsByJackedCarId;
 
     @Id
     @Column(name = "id")
@@ -100,21 +102,21 @@ public class Car {
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -123,24 +125,24 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Car car = (Car) o;
+        CarEntity carEntity = (CarEntity) o;
 
-        if (id != null ? !id.equals(car.id) : car.id != null) return false;
-        if (amRegNumber != null ? !amRegNumber.equals(car.amRegNumber) : car.amRegNumber != null)
+        if (id != null ? !id.equals(carEntity.id) : carEntity.id != null) return false;
+        if (amRegNumber != null ? !amRegNumber.equals(carEntity.amRegNumber) : carEntity.amRegNumber != null)
             return false;
-        if (amColor != null ? !amColor.equals(car.amColor) : car.amColor != null) return false;
-        if (amBodyNumber != null ? !amBodyNumber.equals(car.amBodyNumber) : car.amBodyNumber != null)
+        if (amColor != null ? !amColor.equals(carEntity.amColor) : carEntity.amColor != null) return false;
+        if (amBodyNumber != null ? !amBodyNumber.equals(carEntity.amBodyNumber) : carEntity.amBodyNumber != null)
             return false;
-        if (amEngineNumber != null ? !amEngineNumber.equals(car.amEngineNumber) : car.amEngineNumber != null)
+        if (amEngineNumber != null ? !amEngineNumber.equals(carEntity.amEngineNumber) : carEntity.amEngineNumber != null)
             return false;
-        if (amTechpassportNumber != null ? !amTechpassportNumber.equals(car.amTechpassportNumber) : car.amTechpassportNumber != null)
+        if (amTechpassportNumber != null ? !amTechpassportNumber.equals(carEntity.amTechpassportNumber) : carEntity.amTechpassportNumber != null)
             return false;
-        if (amBirthdate != null ? !amBirthdate.equals(car.amBirthdate) : car.amBirthdate != null)
+        if (amBirthdate != null ? !amBirthdate.equals(carEntity.amBirthdate) : carEntity.amBirthdate != null)
             return false;
-        if (amRegistrationDate != null ? !amRegistrationDate.equals(car.amRegistrationDate) : car.amRegistrationDate != null)
+        if (amRegistrationDate != null ? !amRegistrationDate.equals(carEntity.amRegistrationDate) : carEntity.amRegistrationDate != null)
             return false;
-        if (createdAt != null ? !createdAt.equals(car.createdAt) : car.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(car.updatedAt) : car.updatedAt != null) return false;
+        if (createdAt != null ? !createdAt.equals(carEntity.createdAt) : carEntity.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(carEntity.updatedAt) : carEntity.updatedAt != null) return false;
 
         return true;
     }
@@ -158,5 +160,35 @@ public class Car {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "markId", referencedColumnName = "id")
+    public MarksEntity getMarksByMarkId() {
+        return marksByMarkId;
+    }
+
+    public void setMarksByMarkId(MarksEntity marksByMarkId) {
+        this.marksByMarkId = marksByMarkId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "driverId", referencedColumnName = "id")
+    public DriversEntity getDriversByDriverId() {
+        return driversByDriverId;
+    }
+
+    public void setDriversByDriverId(DriversEntity driversByDriverId) {
+        this.driversByDriverId = driversByDriverId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "jackedCarId", referencedColumnName = "id")
+    public JackedCarsEntity getJackedCarsByJackedCarId() {
+        return jackedCarsByJackedCarId;
+    }
+
+    public void setJackedCarsByJackedCarId(JackedCarsEntity jackedCarsByJackedCarId) {
+        this.jackedCarsByJackedCarId = jackedCarsByJackedCarId;
     }
 }

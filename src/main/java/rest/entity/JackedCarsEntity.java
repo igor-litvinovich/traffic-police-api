@@ -1,22 +1,24 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
 @Table(name = "jacked_cars")
-public class JackedCar {
+public class JackedCarsEntity {
     private Integer id;
     private Date jcJackdate;
     private Date jcReportDate;
     private String jcAdditional;
-    private Byte jcFound;
+    private Boolean jcFound;
     private String jcFoundDate;
     private Date driverRulesDate;
     private String driverCategory;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
+    private Collection<CarEntity> amsById;
+    private Collection<DriversEntity> driversById;
 
     @Id
     @Column(name = "id")
@@ -60,11 +62,11 @@ public class JackedCar {
 
     @Basic
     @Column(name = "JC_FOUND")
-    public Byte getJcFound() {
+    public Boolean getJcFound() {
         return jcFound;
     }
 
-    public void setJcFound(Byte jcFound) {
+    public void setJcFound(Boolean jcFound) {
         this.jcFound = jcFound;
     }
 
@@ -100,21 +102,21 @@ public class JackedCar {
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -123,7 +125,7 @@ public class JackedCar {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        JackedCar that = (JackedCar) o;
+        JackedCarsEntity that = (JackedCarsEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (jcJackdate != null ? !jcJackdate.equals(that.jcJackdate) : that.jcJackdate != null) return false;
@@ -154,5 +156,23 @@ public class JackedCar {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "jackedCarsByJackedCarId")
+    public Collection<CarEntity> getAmsById() {
+        return amsById;
+    }
+
+    public void setAmsById(Collection<CarEntity> amsById) {
+        this.amsById = amsById;
+    }
+
+    @OneToMany(mappedBy = "jackedCarsByJackedCarId")
+    public Collection<DriversEntity> getDriversById() {
+        return driversById;
+    }
+
+    public void setDriversById(Collection<DriversEntity> driversById) {
+        this.driversById = driversById;
     }
 }

@@ -1,11 +1,11 @@
-package rest.Services;
+package rest.service;
 
 import org.springframework.stereotype.Repository;
-import rest.models.User;
+import rest.entity.UserEntity;
 
 import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class UserService extends Service<User> {
+public class UserService extends Service<UserEntity> {
 }

@@ -1,20 +1,22 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     private String id;
     private String email;
     private String password;
     private String firstname;
     private String lastname;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
+    private String role;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public String getId() {
         return id;
@@ -32,6 +34,16 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Basic
+    @Column(name = "role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Basic
@@ -66,21 +78,21 @@ public class User {
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -89,7 +101,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User that = (User) o;
+        UserEntity that = (UserEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;

@@ -1,15 +1,17 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "firms")
-public class Firms {
+public class FirmsEntity {
     private Integer id;
     private String firmName;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
+    private Collection<MarksEntity> marksById;
 
     @Id
     @Column(name = "id")
@@ -33,21 +35,21 @@ public class Firms {
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -56,7 +58,7 @@ public class Firms {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Firms that = (Firms) o;
+        FirmsEntity that = (FirmsEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (firmName != null ? !firmName.equals(that.firmName) : that.firmName != null) return false;
@@ -73,5 +75,14 @@ public class Firms {
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "firmsByFirmId")
+    public Collection<MarksEntity> getMarksById() {
+        return marksById;
+    }
+
+    public void setMarksById(Collection<MarksEntity> marksById) {
+        this.marksById = marksById;
     }
 }

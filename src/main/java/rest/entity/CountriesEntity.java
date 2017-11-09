@@ -1,15 +1,17 @@
-package rest.models;
+package rest.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.util.Collection;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "countries")
+public class CountriesEntity {
     private Integer id;
-    private String name;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String countryName;
+    private Date createdAt;
+    private Date updatedAt;
+    private Collection<MarksEntity> marksById;
 
     @Id
     @Column(name = "id")
@@ -22,32 +24,32 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "COUNTRY_NAME")
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     @Basic
     @Column(name = "createdAt")
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
     @Basic
     @Column(name = "updatedAt")
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -56,10 +58,10 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role that = (Role) o;
+        CountriesEntity that = (CountriesEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (countryName != null ? !countryName.equals(that.countryName) : that.countryName != null) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
 
@@ -69,9 +71,18 @@ public class Role {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (countryName != null ? countryName.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "countriesByCountryId")
+    public Collection<MarksEntity> getMarksById() {
+        return marksById;
+    }
+
+    public void setMarksById(Collection<MarksEntity> marksById) {
+        this.marksById = marksById;
     }
 }
