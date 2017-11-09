@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>
+<html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>
+<html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>
+<html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8"/>
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    <title>Registration Form </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registration Form"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/demo-login.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style-login.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/animate-custom.css"/>
+
+    <script type="text/javascript" language="javascript" src="javascripts/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="javascripts/notify.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <section>
+        <div id="container_demo">
+            <a class="hiddenanchor" id="toregister"></a>
+            <a class="hiddenanchor" id="tologin"></a>
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <form autocomplete="on">
+                        <h1> Sign up </h1>
+                        <p>
+                            <label class="uname" data-icon="u">First Name</label>
+                            <input id="firstname" required="required" type="text"
+                                   placeholder="Jon"/>
+                        </p>
+                        <p>
+                            <label class="uname" data-icon="u">Last Name</label>
+                            <input id="lastname" required="required" type="text"
+                                   placeholder="Snow"/>
+                        </p>
+                        <p>
+                            <label class="youmail" data-icon="e"> Your Email</label>
+                            <input id="email" required="required" type="email"
+                                   placeholder="mysupermail@mail.com"/>
+                        </p>
+                        <p>
+                            <label class="youpasswd" data-icon="p">Your Password </label>
+                            <input id="password" required="required" type="password"
+                                   placeholder="eg. X8df!90EO"/>
+                        </p>
+                        <p>
+                            <label class="youpasswd" data-icon="p">Please confirm your
+                                password </label>
+                            <input id="password_confirm" required="required"
+                                   type="password" placeholder="eg. X8df!90EO"/>
+                        </p>
+                        <p class="signin button">
+                            <input id="submit" type="button" value="Sign up"/>
+                        </p>
+                        <p class="change_link">
+                            Already a member ?
+                            <a href="api/session/new" class="to_register"> Go and log in </a>
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $("#submit").on('click', function () {
+        if(($("#password").val() !== $("#password_confirm").val()) ){
+            $.notify("Passwords Don't Match","warn");
+            return;
+        }
+        else if(!$("#password").val() || !$("#email").val()|| !$("#firstname").val()|| !$("#lastname").val()){
+            $.notify("Fill all fields correctly","warn");
+            return;
+        }
+        $.post("api/users", {
+            'email': $("#email").val(),
+            'firstname': $("#firstname").val(),
+            'lastname': $("#lastname").val(),
+            'password': $("#password").val()
+        }, function (data) {
+        })
+            .done(function () {
+                window.location.replace("/");
+            })
+            .fail(function (error) {
+                $.notify("Incorrect data, please, try again");
+            })
+
+    })
+</script>
+</body>
+</html>

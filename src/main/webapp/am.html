@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/editor.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <script type="text/javascript" language="javascript" src="javascripts/jquery.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="javascripts/dataTables.editor.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+    <script type="text/javascript" language="javascript" src="javascripts/base64.js"></script>
+    <script type="text/javascript" language="javascript" src="javascripts/script.js"></script>
+
+
+    <script type="text/javascript" language="javascript" src="javascripts/notify.js"></script>
+    <script>
+        console.log(getCookie('roleName'));
+        var editor; // use a global for the submit and return data rendering in the examples
+        $(document).ready(function () {
+            editor = new $.fn.dataTable.Editor({
+                ajax: {
+                    create: {
+                        type: 'POST',
+                        url: '/api/ams/'
+                    },
+                    edit: {
+                        type: 'PUT',
+                        url: '/api/ams/'
+                    },
+                    remove: {
+                        type: 'DELETE',
+                        url: '/api/ams/'
+                    }
+                },
+                table: "#example",
+                idSrc: 'id',
+                fields: [{
+                    label: "Identifier:",
+                    name: "id"
+                }, {
+                    label: "AM_REG_NUMBER:",
+                    name: "AM_REG_NUMBER"
+                }, {
+                    label: "AM_BODY_NUMBER:",
+                    name: "AM_BODY_NUMBER"
+                }, {
+                    label: "AM_ENGINE_NUMBER:",
+                    name: "AM_ENGINE_NUMBER"
+                }, {
+                    label: "AM_TECHPASSPORT_NUMBER:",
+                    name: "AM_TECHPASSPORT_NUMBER"
+                }, {
+                    label: "AM_BIRTHDATE:",
+                    name: "AM_BIRTHDATE"
+                }, {
+                    label: "AM_REGISTRATION_DATE:",
+                    name: "AM_REGISTRATION_DATE"
+                }, {
+                    label: "AM_COLOR:",
+                    name: "AM_COLOR"
+                }, {
+                    label: "Mark Id:",
+                    name: "mark"
+                }, {
+                    label: "Driver Id:",
+                    name: "driver"
+                }
+                ]
+            });
+
+            var table = $('#example').DataTable({
+                dom: "Bfrtlip",
+                "serverSide": true,
+                ajax: {
+                    "url": "/api/ams",
+                    "type": "GET"
+                },
+
+                columns: [
+                    {data: "AM_REG_NUMBER"},
+                    {data: "AM_BODY_NUMBER"},
+                    {data: "AM_ENGINE_NUMBER"},
+                    {data: "AM_TECHPASSPORT_NUMBER"},
+                    {data: "AM_BIRTHDATE"},
+                    {data: "AM_REGISTRATION_DATE"},
+                    {data: "AM_COLOR"},
+                    {data: "MARK", "orderable": false},
+                    {data: "DRIVER", "orderable": false},
+                    {data: "id", "visible": true}
+                ],
+                select: true,
+                buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
+            });
+            editor.on( 'submitSuccess', function ( e, type ) {
+                $.notify("Success","success");
+            } );
+
+        });
+
+    </script>
+</head>
+<body>
+
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+
+        <th>Number</th>
+        <th>Body Number</th>
+        <th>Engine Number</th>
+        <th>Techpassport</th>
+        <th>Birthdate</th>
+        <th>Registration Date</th>
+        <th>Color</th>
+        <th>Mark</th>
+        <th>Driver</th>
+        <th>Id</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+
+        <th>Number</th>
+        <th>Body Number</th>
+        <th>Engine Number</th>
+        <th>Techpassport</th>
+        <th>Birthdate</th>
+        <th>Registration Date</th>
+        <th>Color</th>
+        <th>Mark</th>
+        <th>Driver</th>
+        <th>Id</th>
+    </tr>
+    </tfoot>
+</table>
+<a href="panel.html">To Genegal</a>
+</body>
+</html>

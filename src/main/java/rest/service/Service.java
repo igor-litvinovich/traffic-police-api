@@ -3,6 +3,8 @@ package rest.service;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +13,7 @@ import java.util.List;
 abstract class Service<T> implements RestService<T> {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     @Transactional
     @Override
@@ -44,4 +46,17 @@ abstract class Service<T> implements RestService<T> {
         session.update(entity);
         return  entity;
     }
+
+    @Transactional
+    @Override
+    public T findWithCriteria(Class tClass, Criterion[] criterionArray) {
+        Session session = sessionFactory.getCurrentSession();
+        final Criteria criteria = session.createCriteria(tClass);
+        for (Criterion criterion : criterionArray) {
+            criteria.add(criterion);
+        }
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return (T) criteria.uniqueResult();
+    }
+
 }
