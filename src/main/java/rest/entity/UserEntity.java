@@ -1,5 +1,7 @@
 package rest.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -15,8 +17,10 @@ public class UserEntity {
     private Date updatedAt;
     private String role;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "id")
     public String getId() {
         return id;
@@ -102,8 +106,7 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass()) return false;
 
         UserEntity that = (UserEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
@@ -116,7 +119,7 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);

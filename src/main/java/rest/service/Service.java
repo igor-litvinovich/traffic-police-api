@@ -33,7 +33,7 @@ abstract class Service<T> implements RestService<T> {
     @Override
     public T create(T entity) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(entity);
+        session.saveOrUpdate(entity);
         return  entity;
     }
 
