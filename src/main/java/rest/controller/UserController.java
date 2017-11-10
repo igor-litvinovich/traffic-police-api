@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rest.entity.UserEntity;
+import rest.request.RequestParams;
 import rest.service.UserServiceImpl;
 
 import javax.servlet.http.Cookie;
@@ -22,11 +23,14 @@ public class UserController {
     private UserServiceImpl userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity getAll() {
-        List<UserEntity> userEntities = userService.getAll(UserEntity.class);
-        Map map = new HashMap();
-        map.put("data", userEntities);
-        return new ResponseEntity(map, HttpStatus.OK);
+    public ResponseEntity getAll(@ModelAttribute()  RequestParams requestParams) {
+        String searchString = (String) requestParams.getSearch().get("value");
+        List<UserEntity> userEntities = userService.filterEntities(searchString);
+        Map result = new HashMap();
+        result.put("data", userEntities);
+        result.put("recordsTotal", userEntities.size());
+        result.put("recordsFiltered", userEntities.size());
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -37,8 +41,8 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody UserEntity userEntity) {
-        UserEntity createdUserEntity = userService.update(userEntity);
-        return new ResponseEntity(createdUserEntity, HttpStatus.OK);
+        UserEntity updatedUserEntity = userService.update(userEntity);
+        return new ResponseEntity(updatedUserEntity, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

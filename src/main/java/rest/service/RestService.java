@@ -11,4 +11,5 @@ public interface RestService<T> {
     T create(T entity);
     T update(T entity);
     T findWithCriteria(Class<T> tClass, final Criterion... criterionArray);
+    List<T> filterEntities(String searchString);
 }
