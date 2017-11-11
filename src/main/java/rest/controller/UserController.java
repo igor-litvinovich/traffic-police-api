@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping(value = "api/users")
 public class UserController {
@@ -23,9 +22,8 @@ public class UserController {
     private UserServiceImpl userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity getAll(@ModelAttribute()  RequestParams requestParams) {
-        String searchString = (String) requestParams.getSearch().get("value");
-        List<UserEntity> userEntities = userService.filterEntities(searchString);
+    public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
+        List<UserEntity> userEntities = userService.filterEntities(requestParams);
         Map result = new HashMap();
         result.put("data", userEntities);
         result.put("recordsTotal", userEntities.size());
@@ -40,9 +38,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody UserEntity userEntity) {
+    public ResponseEntity update(@RequestBody() UserEntity userEntity) {
         UserEntity updatedUserEntity = userService.update(userEntity);
-        return new ResponseEntity(updatedUserEntity, HttpStatus.OK);
+        Map result = new HashMap();
+        result.put("data", updatedUserEntity);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -1,6 +1,7 @@
 package rest.service;
 
 import org.hibernate.criterion.Criterion;
+import rest.request.RequestParams;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface RestService<T> {
     T create(T entity);
     T update(T entity);
     T findWithCriteria(Class<T> tClass, final Criterion... criterionArray);
-    List<T> filterEntities(String searchString);
+    List<T> filterEntities(RequestParams requestParams);
 }

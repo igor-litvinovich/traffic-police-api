@@ -112,13 +112,20 @@
                 ajax: {
                     edit: {
                         type: 'PUT',
-                        url: '/api/users/'
+                        url: '/api/users',
+
+                        contentType: 'application/json',
+                        "data": function ( d ) {
+                            return JSON.stringify( d.data[(Object.keys(d.data)[0])] );
+                        }
                     },
                     remove: {
                         type: 'DELETE',
-                        url: '/api/users/'
+                        url: '/api/users/',
+                        contentType: 'application/json'
                     }
                 },
+
                 table: "#example",
                 idSrc: 'id',
                 fields: [{
@@ -153,7 +160,7 @@
                     {data: "lastname"},
                     {data: "role", "orderable": false}
                 ],
-                select: true,
+                select: 'single',
                 buttons: [
                     {extend: 'edit', editor: editor},
                     {extend: 'remove', editor: editor},

@@ -7,6 +7,7 @@ import org.hibernate.criterion.SimpleExpression;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Repository;
 import rest.entity.UserEntity;
+import rest.request.RequestParams;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,10 +32,13 @@ public class UserServiceImpl extends Service<UserEntity> {
     }
 
     @Override
-    public List<UserEntity> filterEntities(String searchString) {
+    public List<UserEntity> filterEntities(RequestParams requestParams) {
+        String searchString = (String) requestParams.getSearch().get("value");
         String resultSearchString = "%" + searchString + "%";
+
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(UserEntity.class);
+
         criteria.add(Restrictions.or(
                 Restrictions.like("firstname", resultSearchString),
                 Restrictions.like("lastname", resultSearchString),
@@ -42,6 +46,8 @@ public class UserServiceImpl extends Service<UserEntity> {
                 Restrictions.like("role", resultSearchString),
                 Restrictions.like("id", resultSearchString)
         ));
+        criteria.setFirstResult(requestParams.getStart());
+        criteria.setMaxResults(requestParams.getLength());
         List results = criteria.list();
         return results;
     }
