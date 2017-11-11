@@ -3,9 +3,9 @@ package rest.request;
 import java.util.Map;
 
 public class RequestParams {
-    private int drow;
-    private int start;
-    private int length;
+    private Integer drow;
+    private Integer start;
+    private Integer length;
     private Map search;
 
     public Map getSearch() {
@@ -20,7 +20,6 @@ public class RequestParams {
     }
 
     public int getDrow() {
-
         return drow;
     }
 

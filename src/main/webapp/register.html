@@ -64,7 +64,7 @@
                         </p>
                         <p class="change_link">
                             Already a member ?
-                            <a href="api/session/new" class="to_register"> Go and log in </a>
+                            <a href="index.html" class="to_register"> Go and log in </a>
                         </p>
                     </form>
                 </div>
@@ -75,29 +75,33 @@
 </div>
 <script>
     $("#submit").on('click', function () {
-        if(($("#password").val() !== $("#password_confirm").val()) ){
-            $.notify("Passwords Don't Match","warn");
+        if (($("#password").val() !== $("#password_confirm").val())) {
+            $.notify("Passwords Don't Match", "warn");
             return;
         }
-        else if(!$("#password").val() || !$("#email").val()|| !$("#firstname").val()|| !$("#lastname").val()){
-            $.notify("Fill all fields correctly","warn");
+        else if (!$("#password").val() || !$("#email").val() || !$("#firstname").val() || !$("#lastname").val()) {
+            $.notify("Fill all fields correctly", "warn");
             return;
         }
-        $.post("api/users", {
-            'email': $("#email").val(),
-            'firstname': $("#firstname").val(),
-            'lastname': $("#lastname").val(),
-            'password': $("#password").val()
-        }, function (data) {
-        })
-            .done(function () {
-                window.location.replace("/");
-            })
-            .fail(function (error) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: '/api/users',
+            data: JSON.stringify({
+                'email': $("#email").val(),
+                'firstname': $("#firstname").val(),
+                'lastname': $("#lastname").val(),
+                'password': $("#password").val()
+            }),
+            success: function () {
+                window.location.replace("/panel.html");
+            },
+            error: function (error) {
                 $.notify("Incorrect data, please, try again");
-            })
-
-    })
+            }
+        })
+    });
 </script>
 </body>
 </html>

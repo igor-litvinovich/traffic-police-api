@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody() UserEntity userEntity) {
+    public ResponseEntity update(@RequestBody UserEntity userEntity) {
         UserEntity updatedUserEntity = userService.update(userEntity);
         Map result = new HashMap();
         result.put("data", updatedUserEntity);
@@ -52,9 +52,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity auth(@RequestBody() UserEntity userEntity, HttpServletResponse response) throws Exception {
+    public ResponseEntity auth(HttpServletResponse response, @RequestBody() UserEntity userEntity) throws Exception {
         UserEntity user = userService.authenticate(userEntity);
-        response.addCookie(new Cookie("roleName", user.getRole()));
+        response.addCookie(new Cookie("userRole", user.getRole()));
+        response.sendRedirect("/panel.html");
         return ResponseEntity.ok().build();
     }
 }

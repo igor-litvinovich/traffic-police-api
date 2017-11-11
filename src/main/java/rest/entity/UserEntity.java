@@ -43,6 +43,9 @@ public class UserEntity {
     @Basic
     @Column(name = "role")
     public String getRole() {
+        if(role == null){
+            return "user";
+        }
         return role;
     }
 

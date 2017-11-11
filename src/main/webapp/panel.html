@@ -113,16 +113,14 @@
                     edit: {
                         type: 'PUT',
                         url: '/api/users',
-
                         contentType: 'application/json',
-                        "data": function ( d ) {
-                            return JSON.stringify( d.data[(Object.keys(d.data)[0])] );
-                        }
+                        data: getData
                     },
                     remove: {
                         type: 'DELETE',
                         url: '/api/users/',
-                        contentType: 'application/json'
+                        contentType: 'application/json',
+                        data: getData
                     }
                 },
 
@@ -143,6 +141,9 @@
                 }, {
                     label: "Role",
                     name: "role"
+                }, {
+                    label: "Password",
+                    name: "password"
                 }
                 ]
             });
@@ -154,11 +155,12 @@
 
                 columns: [
 
-                    {data: "id", "visible": true},
-                    {data: "email"},
-                    {data: "firstname"},
-                    {data: "lastname"},
-                    {data: "role", "orderable": false}
+                    {data: "id", "orderable": false},
+                    {data: "email", "orderable": false},
+                    {data: "firstname", "orderable": false},
+                    {data: "lastname", "orderable": false},
+                    {data: "role", "orderable": false},
+                    {data: "password", "visible": false}
                 ],
                 select: 'single',
                 buttons: [
@@ -172,7 +174,6 @@
 
         });
     }
-
 </script>
 
 </html>

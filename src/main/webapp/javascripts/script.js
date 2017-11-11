@@ -55,3 +55,7 @@ function getButtons(roleName, editor) {
     }
     return buttons;
 }
+
+function getData(d) {
+    return JSON.stringify( d.data[(Object.keys(d.data)[0])] );
+}
