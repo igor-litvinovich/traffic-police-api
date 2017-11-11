@@ -51,6 +51,12 @@ public class UserController {
         return new ResponseEntity(createdUserEntity, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@RequestParam("id") String id) {
+        UserEntity deletedUser = userService.delete(UserEntity.class, id);
+        return new ResponseEntity(deletedUser, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ResponseEntity auth(HttpServletResponse response, @RequestBody() UserEntity userEntity) throws Exception {
         UserEntity user = userService.authenticate(userEntity);

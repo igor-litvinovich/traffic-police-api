@@ -57,5 +57,10 @@ function getButtons(roleName, editor) {
 }
 
 function getData(d) {
-    return JSON.stringify( d.data[(Object.keys(d.data)[0])] );
+    let data = d.data[(Object.keys(d.data)[0])];
+    return data;
+}
+
+function getJsonData(d) {
+    return JSON.stringify(getData(d));
 }

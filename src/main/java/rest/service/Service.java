@@ -59,4 +59,13 @@ abstract class Service<T> implements RestService<T> {
         return (T) criteria.uniqueResult();
     }
 
+    @Transactional
+    @Override
+    public T delete(Class clazz,String id) {
+        Session session = sessionFactory.getCurrentSession();
+        T item = (T) session.byId(clazz).load(id);
+        session.delete(item);
+        return  item;
+    }
+
 }
