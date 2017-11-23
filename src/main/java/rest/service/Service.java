@@ -5,8 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import rest.request.RequestParams;
 
 import java.util.List;
 
@@ -67,5 +69,19 @@ abstract class Service<T> implements RestService<T> {
         session.delete(item);
         return  item;
     }
+
+    @Transactional
+    @Override
+    public List<T> filterEntities(RequestParams requestParams, Class<T> tClass) {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(tClass);
+        criteria.add(this.getRestrictions(requestParams));
+        criteria.setFirstResult(requestParams.getStart());
+        criteria.setMaxResults(requestParams.getLength());
+        List results = criteria.list();
+        return results;
+    }
+
+    abstract Disjunction getRestrictions(RequestParams requestParams);
 
 }

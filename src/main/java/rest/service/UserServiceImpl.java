@@ -1,7 +1,6 @@
 package rest.service;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -31,24 +30,19 @@ public class UserServiceImpl extends Service<UserEntity> {
         return userEntity;
     }
 
-    @Override
     public List<UserEntity> filterEntities(RequestParams requestParams) {
+        return super.filterEntities(requestParams, UserEntity.class);
+    }
+
+    protected Disjunction getRestrictions(RequestParams requestParams) {
         String searchString = (String) requestParams.getSearch().get("value");
         String resultSearchString = "%" + searchString + "%";
-
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(UserEntity.class);
-
-        criteria.add(Restrictions.or(
+        return Restrictions.or(
                 Restrictions.like("firstname", resultSearchString),
                 Restrictions.like("lastname", resultSearchString),
                 Restrictions.like("email", resultSearchString),
                 Restrictions.like("role", resultSearchString),
                 Restrictions.like("id", resultSearchString)
-        ));
-        criteria.setFirstResult(requestParams.getStart());
-        criteria.setMaxResults(requestParams.getLength());
-        List results = criteria.list();
-        return results;
+        );
     }
 }

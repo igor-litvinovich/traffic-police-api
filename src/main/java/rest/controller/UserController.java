@@ -19,9 +19,8 @@ public class UserController extends BaseController<UserEntity> {
     UserServiceImpl userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    @Override
     public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
-        return super.getAll(requestParams);
+        return super.getAll(requestParams, UserEntity.class);
     }
 
 

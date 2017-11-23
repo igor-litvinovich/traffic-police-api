@@ -7,7 +7,7 @@ import rest.request.RequestParams;
 public interface Controller<T> {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    ResponseEntity getAll(@ModelAttribute() RequestParams requestParams);
+    ResponseEntity getAll(@ModelAttribute() RequestParams requestParams, Class<T> tClass);
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     ResponseEntity create(@RequestBody T entity);

@@ -18,8 +18,8 @@ abstract class BaseController<T> implements Controller<T> {
     private RestService<T> service;
 
     @Override
-    public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
-        List entities = service.filterEntities(requestParams);
+    public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams, Class<T> tClass) {
+        List entities = service.filterEntities(requestParams, tClass);
         Map result = new HashMap();
         result.put("data", entities);
         result.put("recordsTotal", entities.size());

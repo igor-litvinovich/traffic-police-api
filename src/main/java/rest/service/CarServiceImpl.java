@@ -2,6 +2,7 @@ package rest.service;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Repository;
@@ -16,12 +17,12 @@ import java.util.List;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class CarServiceImpl extends Service<CarEntity> {
     @Override
-    public List<CarEntity> filterEntities(RequestParams requestParams) {
+    public List<CarEntity> filterEntities(RequestParams requestParams, Class<CarEntity> carEntityClass) {
         String searchString = (String) requestParams.getSearch().get("value");
         String resultSearchString = "%" + searchString + "%";
 
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(CarEntity.class);
+        Criteria criteria = session.createCriteria(carEntityClass);
 
         criteria.add(Restrictions.or(
                 Restrictions.like("amRegNumber", resultSearchString),
@@ -34,5 +35,10 @@ public class CarServiceImpl extends Service<CarEntity> {
         criteria.setMaxResults(requestParams.getLength());
         List results = criteria.list();
         return results;
+    }
+
+    @Override
+    Disjunction getRestrictions(RequestParams requestParams) {
+        return null;
     }
 }

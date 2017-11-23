@@ -13,9 +13,8 @@ import rest.request.RequestParams;
 public class CountryController extends BaseController<CountriesEntity> {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    @Override
     public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
-        return super.getAll(requestParams);
+        return super.getAll(requestParams, CountriesEntity.class);
     }
 
 }

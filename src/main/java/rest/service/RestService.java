@@ -13,5 +13,5 @@ public interface RestService<T> {
     T update(T entity);
     T delete(Class clazz,String id);
     T findWithCriteria(Class<T> tClass, final Criterion... criterionArray);
-    List<T> filterEntities(RequestParams requestParams);
+    List<T> filterEntities(RequestParams requestParams, Class<T> tClass);
 }
