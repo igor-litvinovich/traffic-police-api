@@ -6,12 +6,12 @@ import java.sql.Date;
 @Entity
 @Table(name = "ams")
 public class CarEntity {
-    private Integer id;
+    private String id;
     private String amRegNumber;
     private String amColor;
-    private Integer amBodyNumber;
-    private Integer amEngineNumber;
-    private Integer amTechpassportNumber;
+    private String amBodyNumber;
+    private String amEngineNumber;
+    private String amTechpassportNumber;
     private Date amBirthdate;
     private Date amRegistrationDate;
     private Date createdAt;
@@ -22,11 +22,11 @@ public class CarEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,31 +52,31 @@ public class CarEntity {
 
     @Basic
     @Column(name = "AM_BODY_NUMBER")
-    public Integer getAmBodyNumber() {
+    public String getAmBodyNumber() {
         return amBodyNumber;
     }
 
-    public void setAmBodyNumber(Integer amBodyNumber) {
+    public void setAmBodyNumber(String amBodyNumber) {
         this.amBodyNumber = amBodyNumber;
     }
 
     @Basic
     @Column(name = "AM_ENGINE_NUMBER")
-    public Integer getAmEngineNumber() {
+    public String getAmEngineNumber() {
         return amEngineNumber;
     }
 
-    public void setAmEngineNumber(Integer amEngineNumber) {
+    public void setAmEngineNumber(String amEngineNumber) {
         this.amEngineNumber = amEngineNumber;
     }
 
     @Basic
     @Column(name = "AM_TECHPASSPORT_NUMBER")
-    public Integer getAmTechpassportNumber() {
+    public String getAmTechpassportNumber() {
         return amTechpassportNumber;
     }
 
-    public void setAmTechpassportNumber(Integer amTechpassportNumber) {
+    public void setAmTechpassportNumber(String amTechpassportNumber) {
         this.amTechpassportNumber = amTechpassportNumber;
     }
 

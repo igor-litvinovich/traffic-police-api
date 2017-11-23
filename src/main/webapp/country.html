@@ -33,15 +33,15 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/countries/'
+                        url:  '/api/countries'
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/countries/'
+                        url:  '/api/countries'
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/countries/'
+                        url:  '/api/countries'
                     }
                 },
                 table: "#example",
@@ -61,13 +61,13 @@
                 "serverSide": true,
                 ajax:{
                     url:"/api/countries",
-                    type: "GET"
+                    type: "GET",
                 },
                 columns: [
                     { data: "id", "visible": true },
-                    { data: "COUNTRY_NAME" }
+                    { data: "countryName" }
                 ],
-                select: true,
+                select: 'single',
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
             } );
             editor.on( 'submitSuccess', function ( e, type ) {

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rest.entity.UserEntity;
+import rest.request.RequestParams;
 import rest.service.UserServiceImpl;
 
 import javax.servlet.http.Cookie;
@@ -16,6 +17,13 @@ public class UserController extends BaseController<UserEntity> {
 
     @Autowired
     UserServiceImpl userService;
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
+        return super.getAll(requestParams);
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) {

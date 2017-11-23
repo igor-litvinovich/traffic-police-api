@@ -7,7 +7,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "marks")
 public class MarksEntity {
-    private Integer id;
+    private String id;
     private String markName;
     private Date createdAt;
     private Date updatedAt;
@@ -17,11 +17,11 @@ public class MarksEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -89,7 +89,7 @@ public class MarksEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "countryId", referencedColumnName = "id")
+    @JoinColumn(name = "countryId", referencedColumnName = "id", nullable = true)
     public CountriesEntity getCountriesByCountryId() {
         return countriesByCountryId;
     }
@@ -99,7 +99,7 @@ public class MarksEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "firmId", referencedColumnName = "id")
+    @JoinColumn(name = "firmId", referencedColumnName = "id", nullable = true)
     public FirmsEntity getFirmsByFirmId() {
         return firmsByFirmId;
     }

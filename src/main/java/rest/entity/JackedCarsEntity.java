@@ -7,7 +7,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "jacked_cars")
 public class JackedCarsEntity {
-    private Integer id;
+    private String id;
     private Date jcJackdate;
     private Date jcReportDate;
     private String jcAdditional;
@@ -22,11 +22,11 @@ public class JackedCarsEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

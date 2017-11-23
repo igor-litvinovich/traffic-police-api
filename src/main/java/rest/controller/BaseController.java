@@ -3,6 +3,8 @@ package rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import rest.request.RequestParams;
 import rest.service.RestService;
 
@@ -10,29 +12,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BaseController<T> implements Controller<T> {
+abstract class BaseController<T> implements Controller<T> {
 
     @Autowired
     private RestService<T> service;
 
     @Override
-    public ResponseEntity getAll(RequestParams requestParams) {
-        List<T> userEntities = service.filterEntities(requestParams);
+    public ResponseEntity getAll(@ModelAttribute() RequestParams requestParams) {
+        List entities = service.filterEntities(requestParams);
         Map result = new HashMap();
-        result.put("data", userEntities);
-        result.put("recordsTotal", userEntities.size());
-        result.put("recordsFiltered", userEntities.size());
+        result.put("data", entities);
+        result.put("recordsTotal", entities.size());
+        result.put("recordsFiltered", entities.size());
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity create(T entity) {
+    public ResponseEntity create(@RequestBody T entity) {
         T createdEntity = service.create(entity);
         return new ResponseEntity(createdEntity, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity update(T entity) {
+    public ResponseEntity update(@RequestBody T entity) {
         T updatedUserEntity = service.update(entity);
         Map result = new HashMap();
         result.put("data", updatedUserEntity);

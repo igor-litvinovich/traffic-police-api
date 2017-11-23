@@ -7,7 +7,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "firms")
 public class FirmsEntity {
-    private Integer id;
+    private String id;
     private String firmName;
     private Date createdAt;
     private Date updatedAt;
@@ -15,11 +15,11 @@ public class FirmsEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

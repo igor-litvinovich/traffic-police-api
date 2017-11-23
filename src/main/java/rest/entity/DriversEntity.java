@@ -7,11 +7,11 @@ import java.util.Collection;
 @Entity
 @Table(name = "drivers")
 public class DriversEntity {
-    private Integer id;
+    private String id;
     private String driverFio;
     private Date driverBirthdate;
     private String driverAdress;
-    private Integer driverPassport;
+    private String driverPassport;
     private String driverRules;
     private Date driverRulesDate;
     private String driverCategory;
@@ -22,11 +22,11 @@ public class DriversEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,11 +62,11 @@ public class DriversEntity {
 
     @Basic
     @Column(name = "DRIVER_PASSPORT")
-    public Integer getDriverPassport() {
+    public String getDriverPassport() {
         return driverPassport;
     }
 
-    public void setDriverPassport(Integer driverPassport) {
+    public void setDriverPassport(String driverPassport) {
         this.driverPassport = driverPassport;
     }
 

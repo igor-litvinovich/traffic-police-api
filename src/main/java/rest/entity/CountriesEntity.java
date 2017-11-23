@@ -1,5 +1,7 @@
 package rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -7,7 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "countries")
 public class CountriesEntity {
-    private Integer id;
+    private String id;
     private String countryName;
     private Date createdAt;
     private Date updatedAt;
@@ -15,11 +17,11 @@ public class CountriesEntity {
 
     @Id
     @Column(name = "id")
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -77,7 +79,8 @@ public class CountriesEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "countriesByCountryId")
+    @JsonIgnore
+    @OneToMany(mappedBy = "countriesByCountryId", cascade = CascadeType.ALL)
     public Collection<MarksEntity> getMarksById() {
         return marksById;
     }
