@@ -1,6 +1,7 @@
 package rest.service;
 
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -36,13 +37,12 @@ public class UserServiceImpl extends Service<UserEntity> {
 
     protected Disjunction getRestrictions(RequestParams requestParams) {
         String searchString = (String) requestParams.getSearch().get("value");
-        String resultSearchString = "%" + searchString + "%";
         return Restrictions.or(
-                Restrictions.like("firstname", resultSearchString),
-                Restrictions.like("lastname", resultSearchString),
-                Restrictions.like("email", resultSearchString),
-                Restrictions.like("role", resultSearchString),
-                Restrictions.like("id", resultSearchString)
+                Restrictions.like("firstname", searchString, MatchMode.ANYWHERE),
+                Restrictions.like("lastname", searchString, MatchMode.ANYWHERE),
+                Restrictions.like("email", searchString, MatchMode.ANYWHERE),
+                Restrictions.like("role", searchString, MatchMode.ANYWHERE),
+                Restrictions.like("id", searchString, MatchMode.ANYWHERE)
         );
     }
 }

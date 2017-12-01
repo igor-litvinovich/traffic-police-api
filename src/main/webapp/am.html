@@ -42,15 +42,20 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url: '/api/ams/'
+                        url: '/api/cars/',
+                        contentType: 'application/json',
+                        data: getJsonData
                     },
                     edit: {
                         type: 'PUT',
-                        url: '/api/ams/'
+                        url: '/api/cars/',
+                        contentType: 'application/json',
+                        data: getJsonData
                     },
                     remove: {
                         type: 'DELETE',
-                        url: '/api/ams/'
+                        url: '/api/cars/',
+                        data: getData
                     }
                 },
                 table: "#example",
@@ -60,31 +65,31 @@
                     name: "id"
                 }, {
                     label: "AM_REG_NUMBER:",
-                    name: "AM_REG_NUMBER"
+                    name: "amRegNumber"
                 }, {
                     label: "AM_BODY_NUMBER:",
-                    name: "AM_BODY_NUMBER"
+                    name: "amBodyNumber"
                 }, {
                     label: "AM_ENGINE_NUMBER:",
-                    name: "AM_ENGINE_NUMBER"
+                    name: "amEngineNumber"
                 }, {
                     label: "AM_TECHPASSPORT_NUMBER:",
-                    name: "AM_TECHPASSPORT_NUMBER"
+                    name: "amTechpassportNumber"
                 }, {
                     label: "AM_BIRTHDATE:",
-                    name: "AM_BIRTHDATE"
+                    name: "amBirthdate"
                 }, {
                     label: "AM_REGISTRATION_DATE:",
-                    name: "AM_REGISTRATION_DATE"
+                    name: "amRegistrationDate"
                 }, {
                     label: "AM_COLOR:",
-                    name: "AM_COLOR"
+                    name: "amColor"
                 }, {
                     label: "Mark Id:",
-                    name: "mark"
+                    name: "marksByMarkId"
                 }, {
                     label: "Driver Id:",
-                    name: "driver"
+                    name: "driversByDriverId"
                 }
                 ]
             });
@@ -98,15 +103,15 @@
                 },
 
                 columns: [
-                    {data: "AM_REG_NUMBER"},
-                    {data: "AM_BODY_NUMBER"},
-                    {data: "AM_ENGINE_NUMBER"},
-                    {data: "AM_TECHPASSPORT_NUMBER"},
-                    {data: "AM_BIRTHDATE"},
-                    {data: "AM_REGISTRATION_DATE"},
-                    {data: "AM_COLOR"},
-                    {data: "MARK", "orderable": false},
-                    {data: "DRIVER", "orderable": false},
+                    {data: "amRegNumber"},
+                    {data: "amBodyNumber"},
+                    {data: "amEngineNumber"},
+                    {data: "amTechpassportNumber"},
+                    {data: "amBirthdate"},
+                    {data: "amRegistrationDate"},
+                    {data: "amColor"},
+                    {data: "marksByMarkId", "orderable": false},
+                    {data: "driversByDriverId", "orderable": false},
                     {data: "id", "visible": true}
                 ],
                 select: true,

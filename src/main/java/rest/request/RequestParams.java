@@ -27,8 +27,6 @@ public class RequestParams {
         this.drow = drow;
     }
 
-
-
     public int getStart() {
         return start;
     }

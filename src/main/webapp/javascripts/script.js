@@ -19,8 +19,9 @@ function getCookie(name) {
 }
 
 function getButtons(roleName, editor) {
+    //TODO
     var buttons;
-    if(roleName === 'admin') {
+   // if(roleName === 'admin') {
         buttons = [
             {extend: 'create', editor: editor},
             {extend: 'edit', editor: editor},
@@ -37,7 +38,7 @@ function getButtons(roleName, editor) {
                 ]
             }
         ];
-    } else{
+  /*  } else{
         buttons = [
             {extend: 'create', editor: editor},
             {
@@ -52,7 +53,7 @@ function getButtons(roleName, editor) {
                 ]
             }
         ];
-    }
+    }*/
     return buttons;
 }
 

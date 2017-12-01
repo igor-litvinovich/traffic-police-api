@@ -17,7 +17,6 @@ public class UserEntity {
     private Date updatedAt;
     private String role;
 
-
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
