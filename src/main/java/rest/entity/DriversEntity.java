@@ -1,6 +1,6 @@
 package rest.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -162,7 +162,7 @@ public class DriversEntity {
         return result;
     }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     @OneToMany(mappedBy = "driversByDriverId")
     public Collection<CarEntity> getAmsById() {
         return amsById;
@@ -172,7 +172,7 @@ public class DriversEntity {
         this.amsById = amsById;
     }
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "jackedCarId", referencedColumnName = "id")
     public JackedCarsEntity getJackedCarsByJackedCarId() {

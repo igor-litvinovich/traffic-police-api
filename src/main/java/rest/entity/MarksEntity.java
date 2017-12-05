@@ -1,5 +1,7 @@
 package rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -79,6 +81,7 @@ public class MarksEntity {
         return result;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "marksByMarkId")
     public Collection<CarEntity> getAmsById() {
         return amsById;
@@ -98,6 +101,7 @@ public class MarksEntity {
         this.countriesByCountryId = countriesByCountryId;
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "firmId", referencedColumnName = "id", nullable = true)
     public FirmsEntity getFirmsByFirmId() {

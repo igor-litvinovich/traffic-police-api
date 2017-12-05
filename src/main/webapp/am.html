@@ -99,9 +99,9 @@
                 "serverSide": true,
                 ajax: {
                     "url": "/api/cars",
-                    "type": "GET"
+                    "type": "GET",
+                    dataSrc: mapping
                 },
-
                 columns: [
                     {data: "amRegNumber"},
                     {data: "amBodyNumber"},
@@ -111,17 +111,31 @@
                     {data: "amRegistrationDate"},
                     {data: "amColor"},
                     {data: "marksByMarkId", "orderable": false},
-                    {data: "driversByDriverId", "orderable": false},
+                    {data: "driverFio", "orderable": false},
                     {data: "id", "visible": true}
                 ],
                 select: true,
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
             });
-            editor.on( 'submitSuccess', function ( e, type ) {
-                $.notify("Success","success");
-            } );
+            editor.on('submitSuccess', function (e, type) {
+                $.notify("Success", "success");
+            });
+
+            table.on('xhr', function () {
+                const json = table.ajax.json();
+                $.notify(`${json.data.length} row(s) were loaded`, "success");
+            });
 
         });
+
+        function mapping(response) {
+            let data = response.data;
+            return data.map(item => {
+                item.driverFio = item.driversByDriverId.driverFio;
+                item.driversByDriverId = item.driversByDriverId.id;
+                return item;
+            })
+        }
 
     </script>
 </head>
