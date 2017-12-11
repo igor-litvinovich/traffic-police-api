@@ -133,6 +133,7 @@
             return data.map(item => {
                 item.driverFio = item.driversByDriverId.driverFio;
                 item.driversByDriverId = item.driversByDriverId.id;
+                item.marksByMarkId = item.marksByMarkId.markName;
                 return item;
             })
         }
