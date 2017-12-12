@@ -44,13 +44,13 @@
                         type: 'POST',
                         url: '/api/cars/',
                         contentType: 'application/json',
-                        data: getJsonData
+                        data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
                         url: '/api/cars/',
                         contentType: 'application/json',
-                        data: getJsonData
+                        data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
@@ -136,6 +136,14 @@
                 item.marksByMarkId = item.marksByMarkId.markName;
                 return item;
             })
+        }
+
+        function requestMapping(data) {
+            const requestData = getData(data)
+            requestData.marksByMarkId = {id: requestData.marksByMarkId};
+            requestData.driversByDriverId = {id: requestData.driversByDriverId};
+            const json = JSON.stringify(requestData);
+            return json;
         }
 
     </script>

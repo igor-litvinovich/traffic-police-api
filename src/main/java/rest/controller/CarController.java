@@ -1,10 +1,7 @@
 package rest.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rest.entity.CarEntity;
 import rest.request.RequestParams;
 
@@ -17,4 +14,8 @@ public class CarController extends BaseController<CarEntity> {
         return super.getAll(requestParams, CarEntity.class);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    ResponseEntity delete(@RequestParam("id") String id) {
+        return super.delete(CarEntity.class, id);
+    }
 }

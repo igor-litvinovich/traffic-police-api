@@ -23,7 +23,6 @@ public class UserController extends BaseController<UserEntity> {
         return super.getAll(requestParams, UserEntity.class);
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) {
         return super.getById(UserEntity.class, id);
