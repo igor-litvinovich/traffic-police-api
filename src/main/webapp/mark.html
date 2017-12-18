@@ -33,15 +33,18 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/marks'
+                        url:  '/api/marks',
+                        data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/marks'
+                        url:  '/api/marks',
+                        data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/marks'
+                        url:  '/api/marks',
+                        data: getData
                     }
                 },
                 table: "#example",
@@ -50,8 +53,8 @@
                     label: "Identifier:",
                     name: "id"
                 }, {
-                    label: "MARK_NAME:",
-                    name: "MARK_NAME"
+                    label: "MARK NAME:",
+                    name: "markName"
                 }, {
                     label: "FIRM:",
                     name: "firm"
@@ -68,12 +71,13 @@
 
                 ajax:{
                     url:"/api/marks",
-                    type: "GET"
+                    type: "GET",
+                    dataSrc: mapping
                 },
                 columns: [
-                    { data: "MARK_NAME" },
-                    { data: "COUNTRY" ,"orderable":false },
-                    { data: "FIRM","orderable":false },
+                    { data: "markName" },
+                    { data: "countriesByCountryId" ,"orderable":false },
+                    { data: "firmsByFirmId","orderable":false },
                     { data: "id", "visible": true,"orderable":false }
 
                 ],
@@ -84,7 +88,24 @@
                 $.notify("Success","success");
             } );
         } );
+        function mapping(response) {
+            let data = response.data;
+            return data.map(item => {
+                /*
+                item.driverFio = item.driversByDriverId.driverFio;
+                item.driversByDriverId = item.driversByDriverId.id;
+                item.marksByMarkId = item.marksByMarkId.markName;*/
+                return item;
+            })
+        }
 
+        function requestMapping(data) {
+            const requestData = getData(data)
+            /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
+             requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            const json = JSON.stringify(requestData);
+            return json;
+        }
     </script>
 </head>
 <body>

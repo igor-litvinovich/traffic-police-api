@@ -80,7 +80,7 @@ public class CountriesEntity {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "countriesByCountryId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "countriesByCountryId")
     public Collection<MarksEntity> getMarksById() {
         return marksById;
     }

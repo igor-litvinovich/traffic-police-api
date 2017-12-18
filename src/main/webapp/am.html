@@ -139,7 +139,7 @@
         }
 
         function requestMapping(data) {
-            const requestData = getData(data)
+            const requestData = getData(data);
             requestData.marksByMarkId = {id: requestData.marksByMarkId};
             requestData.driversByDriverId = {id: requestData.driversByDriverId};
             const json = JSON.stringify(requestData);

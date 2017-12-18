@@ -80,9 +80,8 @@ public class MarksEntity {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
-
     @JsonIgnore
-    @OneToMany(mappedBy = "marksByMarkId")
+    @OneToMany(mappedBy = "marksByMarkId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     public Collection<CarEntity> getAmsById() {
         return amsById;
     }
@@ -101,8 +100,7 @@ public class MarksEntity {
         this.countriesByCountryId = countriesByCountryId;
     }
 
-    @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "firmId", referencedColumnName = "id", nullable = true)
     public FirmsEntity getFirmsByFirmId() {
         return firmsByFirmId;
