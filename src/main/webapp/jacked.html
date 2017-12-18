@@ -33,15 +33,20 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/jacked/'
+                        url:  '/api/jacked/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/jacked/'
+                        url:  '/api/jacked/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/jacked/'
+                        url:  '/api/jacked/',
+                        data: getData
                     }
                 },
                 table: "#example",
@@ -50,20 +55,20 @@
                     label: "Identifier:",
                     name: "id"
                 }, {
-                    label: "JC_JACKDATE:",
-                    name: "JC_JACKDATE"
+                    label: "JACK DATE:",
+                    name: "jcJackdate"
                 }, {
-                    label: "JC_REPORT_DATE:",
-                    name: "JC_REPORT_DATE"
+                    label: "REPORT DATE:",
+                    name: "jcReportDate"
                 }, {
-                    label: "JC_ADDITIONAL:",
-                    name: "JC_ADDITIONAL"
+                    label: "ADDITIONAL:",
+                    name: "jcAdditional"
                 }, {
-                    label: "JC_FOUND:",
-                    name: "JC_FOUND"
+                    label: "IS FOUND:",
+                    name: "jcFound"
                 }, {
-                    label: "JC_FOUND_DATE:",
-                    name: "JC_FOUND_DATE"
+                    label: "FOUND DATE:",
+                    name: "jcFoundDate"
                 }, {
                     label: "Car Id:",
                     name: "am"
@@ -79,17 +84,18 @@
                 "serverSide": true,
                 ajax:{
                     url:"/api/jacked",
-                    type: "GET"
+                    type: "GET",
+                    dataSrc: mapping
                 },
                 columns: [
 
-                    { data: "JC_JACKDATE" },
-                    { data: "JC_REPORT_DATE" },
-                    { data: "JC_ADDITIONAL" },
-                    { data: "JC_FOUND"},
-                    { data: "JC_FOUND_DATE"},
-                    { data: "DRIVER_RULES_DATE","orderable":false },
-                    { data: "DRIVER_CATEGORY","orderable":false },
+                    { data: "jcJackdate" },
+                    { data: "jcReportDate" },
+                    { data: "jcAdditional" },
+                    { data: "jcFound"},
+                    { data: "jcFoundDate"},
+                    { data: "driverRulesDate","orderable":false },
+                    { data: "driverCategory","orderable":false },
                     { data: "AM","orderable":false },
                     { data: "DRIVER","orderable":false },
                     { data: "id", "visible": true ,"orderable":false }
@@ -102,6 +108,24 @@
             } );
         } );
 
+        function mapping(response) {
+            let data = response.data;
+            return data.map(item => {
+                /*
+                item.driverFio = item.driversByDriverId.driverFio;
+                item.driversByDriverId = item.driversByDriverId.id;
+                item.marksByMarkId = item.marksByMarkId.markName;*/
+                return item;
+            })
+        }
+
+        function requestMapping(data) {
+            const requestData = getData(data)
+            /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
+             requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            const json = JSON.stringify(requestData);
+            return json;
+        }
     </script>
 </head>
 <body>
