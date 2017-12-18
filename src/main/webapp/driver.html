@@ -33,15 +33,20 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/drivers/'
+                        url:  '/api/drivers/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/drivers/'
+                        url:  '/api/drivers/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/drivers/'
+                        url:  '/api/drivers/',
+                        data: getData
                     }
                 },
                 table: "#example",
@@ -50,26 +55,26 @@
                     label: "Identifier:",
                     name: "id"
                 }, {
-                    label: "DRIVER_FIO:",
-                    name: "DRIVER_FIO"
+                    label: "DRIVER FIO:",
+                    name: "driverFio"
                 }, {
-                    label: "DRIVER_BIRTHDATE:",
-                    name: "DRIVER_BIRTHDATE"
+                    label: "DRIVER BIRTHDATE:",
+                    name: "driverBirthdate"
                 }, {
-                    label: "DRIVER_ADRESS:",
-                    name: "DRIVER_ADRESS"
+                    label: "DRIVER ADRESS:",
+                    name: "driverAdress"
                 }, {
-                    label: "DRIVER_PASSPORT:",
-                    name: "DRIVER_PASSPORT"
+                    label: "DRIVER PASSPORT:",
+                    name: "driverPassport"
                 }, {
-                    label: "DRIVER_RULES:",
-                    name: "DRIVER_RULES"
+                    label: "DRIVER RULES:",
+                    name: "driverRules"
                 }, {
-                    label: "DRIVER_RULES_DATE:",
-                    name: "DRIVER_RULES_DATE"
+                    label: "DRIVER RULES DATE:",
+                    name: "driverRulesDate"
                 }, {
-                    label: "DRIVER_CATEGORY:",
-                    name: "DRIVER_CATEGORY"
+                    label: "DRIVER CATEGORY:",
+                    name: "driverCategory"
                 }
                 ]
             } );
@@ -79,17 +84,18 @@
                 "serverSide": true,
                 ajax:{
                     url:"/api/drivers",
-                    type: "GET"
+                    type: "GET",
+                    dataSrc: mapping
                 },
                 columns: [
                     { data: "id", "visible": true },
-                    { data: "DRIVER_FIO" },
-                    { data: "DRIVER_BIRTHDATE" },
-                    { data: "DRIVER_ADRESS" },
-                    { data: "DRIVER_PASSPORT"},
-                    { data: "DRIVER_RULES"},
-                    { data: "DRIVER_RULES_DATE"},
-                    { data: "DRIVER_CATEGORY"}
+                    { data: "driverFio" },
+                    { data: "driverBirthdate" },
+                    { data: "driverAdress" },
+                    { data: "driverPassport"},
+                    { data: "driverRules"},
+                    { data: "driverRulesDate"},
+                    { data: "driverCategory"}
                 ],
                 select: true,
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
@@ -99,6 +105,24 @@
             } );
         } );
 
+        function mapping(response) {
+            let data = response.data;
+            return data.map(item => {
+                /*
+                item.driverFio = item.driversByDriverId.driverFio;
+                item.driversByDriverId = item.driversByDriverId.id;
+                item.marksByMarkId = item.marksByMarkId.markName;*/
+                return item;
+            })
+        }
+
+        function requestMapping(data) {
+            const requestData = getData(data)
+           /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
+            requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            const json = JSON.stringify(requestData);
+            return json;
+        }
     </script>
 </head>
 <body>
