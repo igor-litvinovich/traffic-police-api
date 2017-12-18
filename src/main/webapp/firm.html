@@ -33,15 +33,20 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/firms/'
+                        url:  '/api/firms/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/firms/'
+                        url:  '/api/firms/',
+                        contentType: 'application/json',
+                        data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/firms/'
+                        url:  '/api/firms/',
+                        data: getData
                     }
                 },
                 table: "#example",
@@ -50,8 +55,8 @@
                     label: "Identifier:",
                     name: "id"
                 }, {
-                    label: "FIRM_NAME:",
-                    name: "FIRM_NAME"
+                    label: "FIRM NAME:",
+                    name: "firmName"
                 }
                 ]
             } );
@@ -65,7 +70,7 @@
                 },
                 columns: [
                     { data: "id", "visible": true },
-                    { data: "FIRM_NAME" }
+                    { data: "firmName" }
                 ],
                 select: true,
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
@@ -74,7 +79,24 @@
                 $.notify("Success","success");
             } );
         } );
+        function mapping(response) {
+            let data = response.data;
+            return data.map(item => {
+                /*
+                item.driverFio = item.driversByDriverId.driverFio;
+                item.driversByDriverId = item.driversByDriverId.id;
+                item.marksByMarkId = item.marksByMarkId.markName;*/
+                return item;
+            })
+        }
 
+        function requestMapping(data) {
+            const requestData = getData(data)
+            /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
+             requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            const json = JSON.stringify(requestData);
+            return json;
+        }
     </script>
 </head>
 <body>
