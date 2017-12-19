@@ -1,18 +1,21 @@
 package rest.service;
 
-        import org.hibernate.criterion.Disjunction;
-        import org.hibernate.criterion.MatchMode;
-        import org.hibernate.criterion.Restrictions;
-        import org.springframework.context.annotation.EnableAspectJAutoProxy;
-        import org.springframework.stereotype.Repository;
-        import rest.entity.DriversEntity;
-        import rest.entity.JackedCarsEntity;
-        import rest.request.RequestParams;
+import org.hibernate.Session;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Repository;
+import rest.entity.CarEntity;
+import rest.entity.DriversEntity;
+import rest.entity.JackedCarsEntity;
+import rest.request.RequestParams;
 
-        import javax.transaction.Transactional;
-        import java.time.format.DateTimeFormatter;
-        import java.util.Date;
-        import java.util.List;
+import javax.transaction.Transactional;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -31,5 +34,37 @@ public class JackedCarServiceImpl extends Service<JackedCarsEntity> {
                 Restrictions.like("driverCategory", searchString, MatchMode.ANYWHERE),
                 Restrictions.like("id", searchString, MatchMode.ANYWHERE)
         );
+    }
+
+    @Override
+    public JackedCarsEntity update(JackedCarsEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
+        CarEntity carEntity = this.getCarById(entity.getAmsById().get(0).getId());
+        DriversEntity driverEntity = this.getDriverById(entity.getDriversById().get(0).getId());
+        carEntity.setJackedCarsByJackedCarId(entity);
+        driverEntity.setJackedCarsByJackedCarId(entity);
+        session.update(carEntity);
+        session.update(driverEntity);
+        List<DriversEntity> drivers = new ArrayList<>();
+        drivers.add(driverEntity);
+        List<CarEntity> cars = new ArrayList<>();
+        cars.add(carEntity);
+        entity.setAmsById(cars);
+        entity.setDriversById(drivers);
+        session.update(entity);
+        return entity;
+    }
+
+    //TODO should be refactored. made due to the lack of time.
+    private CarEntity getCarById(String id) {
+        Session session = sessionFactory.getCurrentSession();
+        CarEntity item = session.byId(CarEntity.class).load(id);
+        return item;
+    }
+    //TODO should be refactored. made due to the lack of time.
+    private DriversEntity getDriverById(String id) {
+        Session session = sessionFactory.getCurrentSession();
+        DriversEntity item = session.byId(DriversEntity.class).load(id);
+        return item;
     }
 }

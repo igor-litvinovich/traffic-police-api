@@ -131,10 +131,12 @@
         function mapping(response) {
             let data = response.data;
             return data.map(item => {
-                item.driverFio = item.driversByDriverId.driverFio;
-                item.driversByDriverId = item.driversByDriverId.id;
-                item.markName = item.marksByMarkId.markName;
-                item.marksByMarkId = item.marksByMarkId.id;
+                if (item.driversByDriverId) {
+                    item.driverFio = item.driversByDriverId.driverFio || 'Not Found';
+                    item.driversByDriverId = item.driversByDriverId.id;
+                    item.markName = item.marksByMarkId.markName  || 'Not Found';
+                    item.marksByMarkId = item.marksByMarkId.id;
+                }
                 return item;
             })
         }

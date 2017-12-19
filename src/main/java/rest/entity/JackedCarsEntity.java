@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "jacked_cars")
@@ -20,8 +21,8 @@ public class JackedCarsEntity {
     private String driverCategory;
     private Date createdAt;
     private Date updatedAt;
-    private Collection<CarEntity> amsById;
-    private Collection<DriversEntity> driversById;
+    private List<CarEntity> amsById;
+    private List<DriversEntity> driversById;
 
     @Id
     @Column(name = "id")
@@ -162,20 +163,20 @@ public class JackedCarsEntity {
     }
 
     @OneToMany(mappedBy = "jackedCarsByJackedCarId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<CarEntity> getAmsById() {
+    public List<CarEntity> getAmsById() {
         return amsById;
     }
 
-    public void setAmsById(Collection<CarEntity> amsById) {
+    public void setAmsById(List<CarEntity> amsById) {
         this.amsById = amsById;
     }
 
     @OneToMany(mappedBy = "jackedCarsByJackedCarId", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<DriversEntity> getDriversById() {
+    public List<DriversEntity> getDriversById() {
         return driversById;
     }
 
-    public void setDriversById(Collection<DriversEntity> driversById) {
+    public void setDriversById(List<DriversEntity> driversById) {
         this.driversById = driversById;
     }
 }

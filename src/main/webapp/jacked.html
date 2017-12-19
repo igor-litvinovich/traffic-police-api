@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <title>Jacked</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/editor.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
     <script type="text/javascript" language="javascript" src="javascripts/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="javascripts/dataTables.editor.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 
     <script type="text/javascript" language="javascript" src="javascripts/base64.js"></script>
     <script type="text/javascript" language="javascript" src="javascripts/script.js"></script>
@@ -28,30 +38,30 @@
     <script>
         var editor; // use a global for the submit and return data rendering in the examples
 
-        $(document).ready(function() {
-            editor = new $.fn.dataTable.Editor( {
+        $(document).ready(function () {
+            editor = new $.fn.dataTable.Editor({
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  '/api/jacked/',
+                        url: '/api/jacked/',
                         contentType: 'application/json',
                         data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
-                        url:  '/api/jacked/',
+                        url: '/api/jacked/',
                         contentType: 'application/json',
                         data: requestMapping
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  '/api/jacked/',
+                        url: '/api/jacked/',
                         data: getData
                     }
                 },
                 table: "#example",
-                idSrc:  'id',
-                fields: [ {
+                idSrc: 'id',
+                fields: [{
                     label: "Identifier:",
                     name: "id"
                 }, {
@@ -71,58 +81,73 @@
                     name: "jcFoundDate"
                 }, {
                     label: "Car Id:",
-                    name: "am"
+                    name: "amsById"
                 }, {
                     label: "Driver Id:",
-                    name: "driver"
+                    name: "driversById"
                 }
                 ]
-            } );
+            });
 
-            var table =     $('#example').DataTable( {
+            var table = $('#example').DataTable({
                 dom: "Bfrtlip",
                 "serverSide": true,
-                ajax:{
-                    url:"/api/jacked",
+                ajax: {
+                    url: "/api/jacked",
                     type: "GET",
                     dataSrc: mapping
                 },
                 columns: [
-
-                    { data: "jcJackdate" },
-                    { data: "jcReportDate" },
-                    { data: "jcAdditional" },
-                    { data: "jcFound"},
-                    { data: "jcFoundDate"},
-                    { data: "driverRulesDate","orderable":false },
-                    { data: "driverCategory","orderable":false },
-                    { data: "AM","orderable":false },
-                    { data: "DRIVER","orderable":false },
-                    { data: "id", "visible": true ,"orderable":false }
+                    {data: "jcJackdate"},
+                    {data: "jcReportDate"},
+                    {data: "jcAdditional"},
+                    {data: "jcFound"},
+                    {data: "jcFoundDate"},
+                    {data: "driverRulesDate", "orderable": false},
+                    {data: "driverCategory", "orderable": false},
+                    {data: "amRegNumber", "orderable": false},
+                    {data: "driverFio", "orderable": false},
+                    {data: "id", "visible": true, "orderable": false}
                 ],
                 select: true,
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
-            } );
-            editor.on( 'submitSuccess', function ( e, type ) {
-                $.notify("Success","success");
-            } );
-        } );
+            });
+            editor.on('submitSuccess', function (e, type) {
+                $.notify("Success", "success");
+            });
+        });
 
         function mapping(response) {
             let data = response.data;
-            return data.map(item => {
-                /*
-                item.driverFio = item.driversByDriverId.driverFio;
-                item.driversByDriverId = item.driversByDriverId.id;
-                item.marksByMarkId = item.marksByMarkId.markName;*/
+            return data.map((item) => {
+                const amsById = item.amsById;
+                const driversById = item.driversById;
+
+                if (Array.isArray(amsById) && amsById.length) {
+                    item.amsById = amsById[0].id;
+                    item.amRegNumber = amsById[0].amRegNumber;
+                }
+                else {
+                    item.amsById = '';
+                    item.amRegNumber = 'Car not fount.';
+                }
+
+                if (Array.isArray(driversById) && driversById.length) {
+                    item.driversById = driversById[0].id;
+                    item.driverFio = driversById[0].driverFio;
+                }
+                else {
+                    item.driversById = '';
+                    item.driverFio = 'Driver Not Found';
+                }
                 return item;
-            })
+            });
         }
 
         function requestMapping(data) {
-            const requestData = getData(data)
-            /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
-             requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            const requestData = getData(data);
+            requestData.amsById = [{id: requestData.amsById}];
+            requestData.driversById = [{id: requestData.driversById}];
             const json = JSON.stringify(requestData);
             return json;
         }
