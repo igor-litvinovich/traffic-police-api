@@ -34,11 +34,13 @@
                     create: {
                         type: 'POST',
                         url:  '/api/marks',
+                        contentType: 'application/json',
                         data: requestMapping
                     },
                     edit: {
                         type: 'PUT',
                         url:  '/api/marks',
+                        contentType: 'application/json',
                         data: requestMapping
                     },
                     remove: {
@@ -56,11 +58,8 @@
                     label: "MARK NAME:",
                     name: "markName"
                 }, {
-                    label: "FIRM:",
-                    name: "firm"
-                }, {
-                    label: "COUNTRY:",
-                    name: "country"
+                    label: "COUNTRY ID:",
+                    name: "countryId"
                 }
                 ]
             } );
@@ -75,11 +74,10 @@
                     dataSrc: mapping
                 },
                 columns: [
+                    { data: "id", "visible": true,"orderable":false },
                     { data: "markName" },
-                    { data: "countriesByCountryId" ,"orderable":false },
-                    { data: "firmsByFirmId","orderable":false },
-                    { data: "id", "visible": true,"orderable":false }
-
+                    { data: "countryId", "visible": false },
+                    { data: "countriesByCountryId" ,"orderable":false},
                 ],
                 select: true,
                 buttons: getButtons(Base64.decode(getCookie('roleName')), editor)
@@ -91,6 +89,8 @@
         function mapping(response) {
             let data = response.data;
             return data.map(item => {
+                item.countryId = item.countriesByCountryId.id;
+                item.countriesByCountryId = item.countriesByCountryId.countryName;
                 /*
                 item.driverFio = item.driversByDriverId.driverFio;
                 item.driversByDriverId = item.driversByDriverId.id;
@@ -103,6 +103,7 @@
             const requestData = getData(data)
             /* requestData.marksByMarkId = {id: requestData.marksByMarkId};
              requestData.driversByDriverId = {id: requestData.driversByDriverId};*/
+            requestData.countriesByCountryId = {id: requestData.countryId};
             const json = JSON.stringify(requestData);
             return json;
         }
@@ -114,19 +115,19 @@
     <thead>
     <tr>
 
-        <th>MARK_NAME</th>
-        <th>COUNTRY</th>
+        <th>ID</th>
+        <th>MARK NAME</th>
         <th>FIRM</th>
-        <th>Id</th>
+        <th>COUNTRY</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
 
-        <th>MARK_NAME</th>
-        <th>COUNTRY</th>
+        <th>ID</th>
+        <th>MARK NAME</th>
         <th>FIRM</th>
-        <th>Id</th>
+        <th>COUNTRY</th>
     </tr>
     </tfoot>
 </table>
