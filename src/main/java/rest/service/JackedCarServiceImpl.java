@@ -41,17 +41,17 @@ public class JackedCarServiceImpl extends Service<JackedCarsEntity> {
         Session session = sessionFactory.getCurrentSession();
         CarEntity carEntity = this.getCarById(entity.getAmsById().get(0).getId());
         DriversEntity driverEntity = this.getDriverById(entity.getDriversById().get(0).getId());
-        carEntity.setJackedCarsByJackedCarId(entity);
-        driverEntity.setJackedCarsByJackedCarId(entity);
-        session.update(carEntity);
-        session.update(driverEntity);
-        List<DriversEntity> drivers = new ArrayList<>();
-        drivers.add(driverEntity);
         List<CarEntity> cars = new ArrayList<>();
+        List<DriversEntity> drivers = new ArrayList<>();
+        driverEntity.setJackedCarsByJackedCarId(entity);
+        carEntity.setJackedCarsByJackedCarId(entity);
+        session.merge(carEntity);
+        session.merge(driverEntity);
         cars.add(carEntity);
-        entity.setAmsById(cars);
+        drivers.add(driverEntity);
         entity.setDriversById(drivers);
-        session.update(entity);
+        entity.setAmsById(cars);
+        session.merge(entity);
         return entity;
     }
 
@@ -61,6 +61,7 @@ public class JackedCarServiceImpl extends Service<JackedCarsEntity> {
         CarEntity item = session.byId(CarEntity.class).load(id);
         return item;
     }
+
     //TODO should be refactored. made due to the lack of time.
     private DriversEntity getDriverById(String id) {
         Session session = sessionFactory.getCurrentSession();

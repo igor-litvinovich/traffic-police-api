@@ -80,6 +80,9 @@
                     label: "FOUND DATE:",
                     name: "jcFoundDate"
                 }, {
+                    label: "Driver Category:",
+                    name: "driverCategory"
+                }, {
                     label: "Car Id:",
                     name: "amsById"
                 }, {
@@ -129,7 +132,7 @@
                 }
                 else {
                     item.amsById = '';
-                    item.amRegNumber = 'Car not fount.';
+                    item.amRegNumber = '00A00-99BC-0042-FA20-C20007A7FF09';
                 }
 
                 if (Array.isArray(driversById) && driversById.length) {
@@ -138,7 +141,7 @@
                 }
                 else {
                     item.driversById = '';
-                    item.driverFio = 'Driver Not Found';
+                    item.driverFio = 'John smith';
                 }
                 return item;
             });

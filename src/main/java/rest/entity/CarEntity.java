@@ -164,7 +164,7 @@ public class CarEntity {
         return result;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "markId", referencedColumnName = "id")
     public MarksEntity getMarksByMarkId() {
         return marksByMarkId;

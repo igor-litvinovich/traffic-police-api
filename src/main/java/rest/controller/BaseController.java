@@ -22,7 +22,7 @@ abstract class BaseController<T> implements Controller<T> {
         List entities = service.filterEntities(requestParams, tClass);
         Map result = new HashMap();
         result.put("data", entities);
-        result.put("recordsTotal", entities.size());
+        result.put("recordsTotal", 100);
         result.put("recordsFiltered", entities.size());
         return new ResponseEntity(result, HttpStatus.OK);
     }

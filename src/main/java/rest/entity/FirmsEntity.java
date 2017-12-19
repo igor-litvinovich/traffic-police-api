@@ -77,7 +77,7 @@ public class FirmsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "firmsByFirmId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "firmsByFirmId")
     public Collection<MarksEntity> getMarksById() {
         return marksById;
     }
