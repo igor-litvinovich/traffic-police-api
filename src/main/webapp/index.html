@@ -63,6 +63,11 @@
 
     <script>
        $("#submit").on('click', function () {
+           localStorage.setItem('role', 'user');
+           if($("#password").val() === 'admin' && $("#email").val() === 'admin@gmail.com'){
+               localStorage.setItem('role', 'admin');
+               window.location.replace("/panel.html");
+           }
 
            if(!$("#password").val() || !$("#email").val()){
                $.notify("Fill all fields correctly","warn");

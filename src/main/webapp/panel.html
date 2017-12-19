@@ -89,20 +89,14 @@
 </body>
 <script>
     $("#logout").on('click', function () {
-        $.ajax({
-            url: 'api/session/',
-            type: 'DELETE',
-            success: function () {
-                window.location.replace('/');
-            }
-        });
-
+        localStorage.setItem('role', '');
+        window.location.replace('/');
     });
 
 </script>
 <script>
-    //TODO chanme to !==
-    if (Base64.decode(getCookie('roleName')) === 'admin') {
+
+    if (Base64.decode(getCookie('roleName')) !== 'admin') {
         $("#adminpanel").hide();
     }
     else {
