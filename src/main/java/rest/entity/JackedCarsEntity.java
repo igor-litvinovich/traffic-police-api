@@ -161,7 +161,6 @@ public class JackedCarsEntity {
         return result;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "jackedCarsByJackedCarId", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<CarEntity> getAmsById() {
         return amsById;
@@ -171,7 +170,6 @@ public class JackedCarsEntity {
         this.amsById = amsById;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "jackedCarsByJackedCarId", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<DriversEntity> getDriversById() {
         return driversById;
