@@ -110,7 +110,7 @@
                     {data: "amBirthdate"},
                     {data: "amRegistrationDate"},
                     {data: "amColor"},
-                    {data: "marksByMarkId", "orderable": false},
+                    {data: "markName", "orderable": false},
                     {data: "driverFio", "orderable": false},
                     {data: "id", "visible": true}
                 ],
@@ -133,7 +133,8 @@
             return data.map(item => {
                 item.driverFio = item.driversByDriverId.driverFio;
                 item.driversByDriverId = item.driversByDriverId.id;
-                item.marksByMarkId = item.marksByMarkId.markName;
+                item.markName = item.marksByMarkId.markName;
+                item.marksByMarkId = item.marksByMarkId.id;
                 return item;
             })
         }
